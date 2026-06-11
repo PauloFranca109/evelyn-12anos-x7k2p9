@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Evelyn ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Tela de senha -->
+  <div id="gate">
+    <div id="gate-box">
+      <div class="heart-icon">💌</div>
+      <h1>Para Evelyn</h1>
+      <p>Digite a palavra especial para abrir</p>
+      <input type="password" id="senha" placeholder="senha">
+      <button onclick="verificar()">Abrir com amor</button>
+      <div id="gate-error">Tente de novo, meu amor 💕</div>
+    </div>
+  </div>
+
+  <!-- Conteúdo -->
+  <div id="content">
+
+    <!-- Menu -->
+    <section id="page-menu" class="page">
+      <section class="hero">
+        <div class="eyebrow">Feliz Dia dos Namorados</div>
+        <h1>Meu amor, Evelyn ❤️</h1>
+        <div class="names">Paulo &amp; Evelyn</div>
+      </section>
+
+      <nav class="menu">
+        <a href="#carta">
+          <span class="icon">💌</span>
+          <span class="text"><strong>A Carta</strong><span>uma mensagem para você</span></span>
+        </a>
+        <a href="#contador">
+          <span class="icon">⏱️</span>
+          <span class="text"><strong>Nosso Tempo</strong><span>cada segundo juntos, contado</span></span>
+        </a>
+        <a href="#galeria">
+          <span class="icon">📸</span>
+          <span class="text"><strong>Nossos Momentos</strong><span>fotos da nossa história</span></span>
+        </a>
+      </nav>
+
+      <div class="footer">
+        <div class="big-heart">♥</div>
+        <p>Eu te amo, hoje e sempre.</p>
+      </div>
+    </section>
+
+    <!-- Carta -->
+    <section id="page-carta" class="page" hidden>
+      <a href="#menu" class="back-link">← Voltar</a>
+      <section class="section">
+        <div class="section-title">Uma carta para você</div>
+        <div class="section-subtitle">escrita com o coração</div>
+        <div class="letter-card">
+          <div class="letter">São 12 anos comemorando o Dia dos Namorados, e acredito que este seja diferente. Com o passar do tempo, observando nossas fotos, pude ver o quanto nós fomos mudando. Mas tem uma coisa que eu gostaria que você soubesse: o sentimento que eu tenho por você não muda. Eu te amo a cada dia como se fosse a primeira vez!
+
+Obrigado por ser minha namorada todo esse tempo e por dedicar sua vida junto da minha, por me consolar e me acalmar nos momentos em que a minha mente não via saída. Espero que saiba o quão importante e especial você é na minha vida.
+
+Sei que não sou o homem mais romântico — dizem que as pessoas têm formas diferentes de demonstrar amor —, mas espero que você não duvide das minhas palavras, creio que eu seja objetivo, elas são sinceras.
+
+Te amo, da quantidade de números que existe entre 0 até 1.
+
+PS: Não quis usar o chat para florear kkkkk</div>
+          <div class="signature">Paulo</div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Contador -->
+    <section id="page-contador" class="page" hidden>
+      <a href="#menu" class="back-link">← Voltar</a>
+      <section class="hero" style="min-height: 80vh;">
+        <div class="eyebrow">Desde 18 de dezembro de 2013</div>
+        <h1>Nosso Tempo Juntos</h1>
+        <div class="counter" id="counter">
+          <div class="box"><div class="num" id="c-anos">0</div><div class="label">anos</div></div>
+          <div class="box"><div class="num" id="c-dias">0</div><div class="label">dias</div></div>
+          <div class="box"><div class="num" id="c-horas">0</div><div class="label">horas</div></div>
+          <div class="box"><div class="num" id="c-min">0</div><div class="label">min</div></div>
+          <div class="box"><div class="num" id="c-seg">0</div><div class="label">seg</div></div>
+        </div>
+        <div class="counter-caption">e contando, juntos a cada segundo ❤️</div>
+      </section>
+    </section>
+
+    <!-- Galeria -->
+    <section id="page-galeria" class="page" hidden>
+      <a href="#menu" class="back-link">← Voltar</a>
+      <section class="section">
+        <div class="section-title">Nossos momentos</div>
+        <div class="section-subtitle">cada foto, uma lembrança</div>
+        <div class="gallery" id="gallery"></div>
+      </section>
+    </section>
+
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" onclick="this.style.display='none'">
+    <img id="lightbox-img" src="">
+  </div>
+
+  <!-- Música -->
+  <audio id="musica" src="musica.mp4" loop></audio>
+  <button id="music-toggle" onclick="alternarMusica()" style="display:none">🔊</button>
+
+<script src="auth.js"></script>
+<script>
+  // Roteamento por hash (mantém a música tocando entre "páginas")
+  function rotear() {
+    var hash = window.location.hash.replace('#', '') || 'menu';
+    var paginas = ['menu', 'carta', 'contador', 'galeria'];
+    paginas.forEach(function(p) {
+      document.getElementById('page-' + p).hidden = (p !== hash);
+    });
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', rotear);
+  rotear();
+
+  // Galeria
+  var gallery = document.getElementById('gallery');
+  for (var i = 1; i <= 25; i++) {
+    var img = document.createElement('img');
+    img.src = 'fotos/foto' + i + '.jpeg';
+    img.loading = 'lazy';
+    img.onclick = function() {
+      document.getElementById('lightbox-img').src = this.src;
+      document.getElementById('lightbox').style.display = 'flex';
+    };
+    gallery.appendChild(img);
+  }
+
+  // Contador de tempo juntos
+  var inicio = new Date(2013, 11, 18, 0, 0, 0); // 18/12/2013
+  function atualizarContador() {
+    var agora = new Date();
+
+    var anos = agora.getFullYear() - inicio.getFullYear();
+    var aniversario = new Date(agora.getFullYear(), inicio.getMonth(), inicio.getDate());
+    if (agora < aniversario) anos--;
+
+    var ultimoAniversario = new Date(inicio.getFullYear() + anos, inicio.getMonth(), inicio.getDate());
+    var diffDesdeAniversario = agora - ultimoAniversario;
+
+    var totalSeg = Math.floor(diffDesdeAniversario / 1000);
+    var dias = Math.floor(totalSeg / 86400);
+    var horas = Math.floor((totalSeg % 86400) / 3600);
+    var min = Math.floor((totalSeg % 3600) / 60);
+    var seg = totalSeg % 60;
+
+    document.getElementById('c-anos').textContent = anos;
+    document.getElementById('c-dias').textContent = dias;
+    document.getElementById('c-horas').textContent = horas;
+    document.getElementById('c-min').textContent = min;
+    document.getElementById('c-seg').textContent = seg;
+  }
+  atualizarContador();
+  setInterval(atualizarContador, 1000);
+
+  // Mostra o botão de música se já estiver liberado
+  if (sessionStorage.getItem('liberado') === 'sim') {
+    document.getElementById('music-toggle').style.display = 'block';
+  }
+  var origVerificar = verificar;
+  verificar = function() {
+    origVerificar();
+    if (sessionStorage.getItem('liberado') === 'sim') {
+      document.getElementById('music-toggle').style.display = 'block';
+    }
+  };
+</script>
+</body>
+</html>
